@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 25.2.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 27.6.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="32px" height="32px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#007AFF;}
-	.st1{fill:#3585F9;}
-	.st2{fill:#FFFFFF;}
-	.st3{opacity:0.4;}
-	.st4{opacity:0.3;fill:#007AFF;}
+	.st0{fill:#1EB8D1;stroke:#1EB8D1;stroke-miterlimit:10;}
+	.st1{fill:#FFFFFF;stroke:#FFFFFF;stroke-miterlimit:10;}
 </style>
 <g>
-	<polygon class="st2" points="18.4,19.1 14.7,6.9 11.7,6.9 7.9,19.1 4.2,6.9 0.8,6.9 6.2,24.8 9,24.8 13.2,11.8 17.4,24.8 
-		20.1,24.8 25.6,6.9 22.2,6.9 	"/>
-	<circle class="st0" cx="28.4" cy="22.3" r="2.8"/>
+	<g>
+		<g>
+			<rect x="1.2" y="23.8" class="st0" width="11" height="1.1"/>
+		</g>
+		<g>
+			<rect x="1.2" y="15.4" class="st0" width="11" height="1.1"/>
+		</g>
+		<g>
+			<rect x="1.2" y="7.1" class="st0" width="11" height="1.1"/>
+		</g>
+		<g>
+			<g>
+				<path class="st1" d="M23.1,16.1l-6.4,8.5h-0.6l6.7-8.9l-6.2-8.3h0.6l5.9,7.9l5.9-7.9h0.6l-6.2,8.3l6.7,8.9h-0.6L23.1,16.1"/>
+				<polygon class="st1" points="30.8,24.9 29.4,24.9 23.1,16.6 16.9,24.9 15.5,24.9 22.4,15.7 16,7.1 17.4,7.1 23.1,14.8 28.9,7.1 
+					30.3,7.1 23.8,15.7 				"/>
+			</g>
+		</g>
+	</g>
 </g>
 </svg>
