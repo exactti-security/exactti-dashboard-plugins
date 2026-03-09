@@ -1,0 +1,55 @@
+name: Exact-Ti Core - Sync & Rebrand
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+env:
+  UPSTREAM_REPO: "wazuh/wazuh"
+
+jobs:
+  sync-upstream:
+    name: Sync Upstream Wazuh
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.EXACTTI_TOKEN }}
+      - name: Sync upstream
+        run: |
+          git remote add upstream https://github.com/${{ env.UPSTREAM_REPO }}.git || true
+          git fetch upstream --tags
+          git config user.name "Exact-Ti Bot"
+          git config user.email "bot@exactti.com"
+          git merge upstream/main --no-edit --allow-unrelated-histories || true
+          git push origin main
+  rebrand:
+    name: Apply Exact-Ti Branding
+    runs-on: ubuntu-22.04
+    needs: sync-upstream
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.EXACTTI_TOKEN }}
+      - name: Replace Wazuh references
+        run: |
+          find . -type f \( -name '*.conf' -o -name '*.sh' -o -name '*.py' \) -not -path '*/.git/*' \
+            -exec sed -i -e 's/wazuh-manager/exactti-server/g' -e 's/wazuh-agent/exactti-agent/g' {} \;
+          find . -type f -name '*.service' -not -path '*/.git/*' \
+            -exec sed -i -e 's/Wazuh Manager/Exact-Ti Server/g' -e 's/wazuh/exactti/g' {} \;
+          git config user.name "Exact-Ti Bot"
+          git config user.email "bot@exactti.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "chore: rebrand to Exact-Ti [skip ci]"
+          git push origin main
+  notify:
+    name: Summary
+    runs-on: ubuntu-22.04
+    needs: [sync-upstream, rebrand]
+    if: always()
+    steps:
+      - run: echo "Exact-Ti Core pipeline done" >> $GITHUB_STEP_SUMMARY
