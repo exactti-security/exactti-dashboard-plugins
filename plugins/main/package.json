@@ -5,13 +5,13 @@
   "pluginPlatform": {
     "version": "3.5.0"
   },
-  "description": "Wazuh dashboard",
+  "description": "Exact-Ti dashboard",
   "keywords": [
     "opensearch_dashboards",
     "wazuh",
     "ossec"
   ],
-  "author": "Wazuh, Inc",
+  "author": "Exact-Ti, Inc",
   "license": "GPL-2.0",
   "resolutions": {
     "**/es5-ext": "^0.10.63",
@@ -26,12 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wazuh/wazuh-dashboard-plugins.git"
+    "url": "https://github.com/wazuh/exactti-dashboard-plugins.git"
   },
   "bugs": {
-    "url": "https://github.com/wazuh/wazuh-dashboard-plugins/issues"
+    "url": "https://github.com/wazuh/exactti-dashboard-plugins/issues"
   },
-  "homepage": "https://www.wazuh.com/",
+  "homepage": "https://www.exactti.com/",
   "scripts": {
     "lint": "eslint \"{public,server,common}/**/*.{js,jsx,ts,tsx,json}\"",
     "lint:public": "eslint \"public/**/*.{js,jsx,ts,tsx,json}\"",
