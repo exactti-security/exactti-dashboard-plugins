@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 25.2.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 27.6.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="80.4px" height="80.4px" viewBox="0 0 80.4 80.4" style="enable-background:new 0 0 80.4 80.4;" xml:space="preserve">
+	 viewBox="0 0 80.4 80.4" style="enable-background:new 0 0 80.4 80.4;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#007AFF;}
+	.st0{fill:#1EB8D1;stroke:#1EB8D1;stroke-width:3;stroke-miterlimit:10;}
+	.st1{fill:#020203;stroke:#020203;stroke-width:3;stroke-miterlimit:10;}
 </style>
 <g>
-	<polygon points="46.4,48.2 36.9,17.2 29.4,17.2 19.8,48.2 10.4,17.2 1.8,17.2 15.5,62.3 22.6,62.3 33.1,29.7 43.6,62.3 50.7,62.3 
-		64.4,17.2 55.8,17.2 	"/>
-	<circle class="st0" cx="71.6" cy="56.1" r="7.1"/>
+	<rect x="3.5" y="38.5" class="st0" width="27.4" height="2.7"/>
+	<rect x="3.5" y="17.9" class="st0" width="27.4" height="2.7"/>
+	<g>
+		<path class="st1" d="M57.9,40.2L42,61.4h-1.5l16.6-22.1L41.8,18.7h1.5L58,38.4l14.7-19.7h1.5L58.7,39.3l16.6,22.1h-1.5L57.9,40.2"
+			/>
+		<polygon class="st1" points="76.9,62.1 73.5,62.1 57.9,41.5 42.4,62.1 39,62.1 56.3,39.3 40.3,17.9 43.7,17.9 58,37.1 72.3,17.9 
+			75.7,17.9 59.7,39.3 		"/>
+	</g>
+	<rect x="3.5" y="59.8" class="st0" width="27.4" height="2.7"/>
 </g>
 </svg>
