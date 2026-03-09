@@ -5,7 +5,7 @@
   "pluginPlatform": {
     "version": "3.5.0"
   },
-  "description": "Wazuh Core",
+  "description": "Exact-Ti Core",
   "private": true,
   "resolutions": {
     "**/follow-redirects": "^1.15.6",
