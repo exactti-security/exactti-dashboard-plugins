@@ -1,33 +1,17 @@
 {
-  "id": "wazuh",
-  "version": "5.0.0-00",
-  "opensearchDashboardsVersion": "opensearchDashboards",
-  "configPath": ["wazuh"],
+  "id": "exactti",
+  "version": "4.10.0",
+  "opensearchDashboardsVersion": "2.18.0",
+  "description": "Exact-Ti Security Platform — Plugin principal de gerenciamento e monitoramento",
   "requiredPlugins": [
-    "navigation",
-    "data",
-    "dashboard",
-    "embeddable",
-    "discover",
-    "inspector",
-    "visualizations",
-    "uiActions",
-    "charts",
-    "savedObjects",
-    "opensearchDashboardsReact",
-    "opensearchDashboardsUtils",
-    "opensearchDashboardsLegacy",
-    "wazuhCheckUpdates",
-    "wazuhCore"
+    "opensearchDashboards",
+    "home",
+    "management",
+    "data"
   ],
   "optionalPlugins": [
-    "security",
-    "securityDashboards",
-    "searchguard",
-    "telemetry",
-    "notificationsDashboards",
-    "alertingDashboards",
-    "reportsDashboards"
+    "alerting",
+    "securityDashboards"
   ],
   "server": true,
   "ui": true
