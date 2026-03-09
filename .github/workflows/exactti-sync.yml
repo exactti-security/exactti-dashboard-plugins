@@ -1,0 +1,70 @@
+name: "Exact-Ti Plugins — Sync & Rebranding"
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sync-upstream:
+    name: "Sync wazuh/wazuh-dashboard-plugins upstream"
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.EXACTTI_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "exactti-bot"
+          git config user.email "devops@exactti.com"
+
+      - name: Sync upstream
+        run: |
+          git remote add upstream https://github.com/wazuh/wazuh-dashboard-plugins.git || true
+          git fetch upstream
+          git merge upstream/main --no-edit || echo "::warning::Merge conflict - manual review needed"
+
+      - name: Push
+        run: git push origin main
+
+  plugin-rebranding:
+    name: "Rebrand Plugin IDs and Routes"
+    runs-on: ubuntu-22.04
+    needs: sync-upstream
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.EXACTTI_TOKEN }}
+
+      - name: Rename plugin ID and routes
+        run: |
+          # Rename plugin manifest
+          find . -name 'opensearch_dashboards.json' \
+            | xargs sed -i \
+              -e 's/"id": "wazuh"/"id": "exactti"/g' \
+              -e 's/"name": "Wazuh"/"name": "Exact-Ti"/g' \
+              2>/dev/null || true
+          # Rename URL routes
+          find . -type f \( -name '*.ts' -o -name '*.tsx' \) \
+            -not -path '*/.git/*' -not -path '*/node_modules/*' \
+            | xargs sed -i \
+              -e 's|/app/wazuh|/app/exactti|g' \
+              -e 's/wazuh-alerts-\*/exact-ti-alerts-*/g' \
+              -e 's/wazuh-monitoring-\*/exact-ti-monitoring-*/g' \
+              -e 's/wazuh-statistics-\*/exact-ti-statistics-*/g' \
+              2>/dev/null || true
+
+      - name: Commit rebranding
+        run: |
+          git config user.name "exactti-bot"
+          git config user.email "devops@exactti.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "chore: rename plugin IDs, routes and index patterns to exactti"
+          git push origin main || true
+
+      - name: Summary
+        run: echo "### Exact-Ti Plugins rebranding complete" >> $GITHUB_STEP_SUMMARY
