@@ -1,0 +1,86 @@
+name: Exact-Ti Dashboard Plugins — Sync & Rebrand
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  sync-upstream:
+    name: 🔄 Sync Plugins Upstream
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "Exact-Ti Bot"
+          git config user.email "devops@exactti.com"
+
+      - name: Sync upstream
+        run: |
+          git remote add upstream https://github.com/wazuh/wazuh-dashboard-plugins.git || true
+          git fetch upstream main
+          LOCAL=$(git rev-parse HEAD)
+          UPSTREAM=$(git rev-parse upstream/main)
+          if [ "$LOCAL" != "$UPSTREAM" ]; then
+            git merge upstream/main --no-edit --strategy-option=ours || true
+            git push origin main
+            echo "✅ Sincronizado com upstream"
+          else
+            echo "✅ Já atualizado"
+          fi
+
+  rebrand-plugins:
+    name: 🎨 Rebrand Plugins — Exact-Ti
+    runs-on: ubuntu-22.04
+    needs: sync-upstream
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "Exact-Ti Bot"
+          git config user.email "devops@exactti.com"
+
+      - name: Renomear ID do plugin
+        run: |
+          find . -name 'opensearch_dashboards.json' -not -path '*/.git/*' \
+            -exec sed -i 's/"id": "wazuh"/"id": "exactti"/g' {} \;
+          find . -name 'opensearch_dashboards.json' -not -path '*/.git/*' \
+            -exec sed -i 's/"name": "Wazuh"/"name": "Exact-Ti"/g' {} \;
+
+      - name: Renomear rotas de URL
+        run: |
+          find . -type f \( -name '*.ts' -o -name '*.tsx' \) \
+            -not -path '*/node_modules/*' -not -path '*/.git/*' \
+            -exec sed -i 's|/app/wazuh|/app/exactti|g' {} \;
+
+      - name: Renomear índices
+        run: |
+          find . -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*.json' \) \
+            -not -path '*/node_modules/*' -not -path '*/.git/*' \
+            -exec sed -i 's/wazuh-alerts-\*/exact-ti-alerts-*/g' {} \;
+          find . -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*.json' \) \
+            -not -path '*/node_modules/*' -not -path '*/.git/*' \
+            -exec sed -i 's/wazuh-monitoring-\*/exact-ti-monitoring-*/g' {} \;
+
+      - name: Commit
+        run: |
+          git add -A
+          git diff --cached --quiet || git commit -m "rebrand: renomear rotas e indices para Exact-Ti [automated]"
+          git push origin main
+
+      - name: Summary
+        run: |
+          echo "## 🎨 Plugins Rebranding" >> $GITHUB_STEP_SUMMARY
+          echo "✅ IDs, rotas e índices renomeados para Exact-Ti" >> $GITHUB_STEP_SUMMARY
